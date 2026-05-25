@@ -1,0 +1,264 @@
+import { motion } from "motion/react";
+import { RxCross2 } from "react-icons/rx";
+import { IoIosAdd } from "react-icons/io";
+import { FaGithub } from "react-icons/fa";
+import { BsLinkedin } from "react-icons/bs";
+import { FaTwitter } from "react-icons/fa";
+import { useRef, useState } from "react";
+import { useForm } from "react-hook-form";
+import { useNavigate } from "react-router-dom";
+
+import { completeDatafromServer } from "../../../services/userLinkServices";
+import { Loader } from "../../loader";
+
+export const CompleteProfile = () => {
+  const { register, handleSubmit, reset } = useForm();
+  const [mySkills, setMySkills] = useState([]);
+  const [submiting, setSubmiting] = useState(false);
+  const inputSkills = useRef();
+  const navigate = useNavigate();
+
+  const handleSkills = () => {
+    const skill = inputSkills.current.value.trim();
+    const newSkill = skill.charAt(0).toUpperCase() + skill.slice(1);
+
+    if (!newSkill) return;
+
+    setMySkills((prev) => [...prev, newSkill]);
+    inputSkills.current.value = "";
+  };
+
+  const handleDeleteSkills = (skill) => {
+    const filteredSkills = mySkills.filter((s) => s != skill);
+    setMySkills(filteredSkills);
+  };
+
+  const professionalLinks = [
+    {
+      icon: <FaGithub />,
+      placeholder: "https://github.com/username",
+      register: "links.github",
+    },
+    {
+      icon: <BsLinkedin />,
+      placeholder: "https://linkedin.com/in/username",
+      register: "links.linkedin",
+    },
+    {
+      icon: <FaTwitter />,
+      placeholder: "https://twitter.com/username",
+      register: "links.twitter",
+    },
+  ];
+
+  const onSubmit = async (data) => {
+    setSubmiting(true);
+
+    try {
+      const finalData = { ...data, skills: mySkills };
+      const result = await completeDatafromServer(finalData);
+
+      console.log(result);
+
+      if (result.completed) {
+        navigate("/profile");
+      }
+    } catch (err) {
+      console.log(err);
+    } finally {
+      setSubmiting(false);
+    }
+  };
+
+  return (
+    <>
+      {submiting ? (
+        <Loader />
+      ) : (
+        <div className="flex items-center justify-center m-6">
+          <motion.div
+            initial={{ opacity: 0, x: 20 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.5 }}
+          >
+            <form
+              onSubmit={handleSubmit(onSubmit)}
+              className="border w-6xl bg-white p-6 rounded-2xl border-slate-200 shadow-sm"
+            >
+              <div className="font-bold text-2xl">
+                <h1>Complete Your Profile</h1>
+              </div>
+
+              <div className="border-b my-6"></div>
+
+              {/** PROFILE */}
+              {/* <div className="mb-6"> */}
+              <h1 className="text-lg font-semibold text-blue-500 mb-4">
+                Profile Hook
+              </h1>
+
+              <div className="flex flex-col md:flex-row items-center gap-6 mb-6">
+                {/* Right Content */}
+
+                <div className="flex flex-col gap-4 w-full">
+                  <div className="flex flex-col gap-1">
+                    <label className="text-sm font-medium text-slate-600">
+                      Headline
+                    </label>
+                    <input
+                      type="file"
+                      {...register("profile")}
+                      className="border border-slate-300 rounded-lg px-4 py-2 w-full focus:outline-none focus:ring-2 focus:ring-blue-400"
+                    />
+                  </div>
+                  {/* Headline */}
+                  <div className="flex flex-col gap-1">
+                    <label className="text-sm font-medium text-slate-600">
+                      Headline
+                    </label>
+                    <input
+                      type="text"
+                      {...register("headline")}
+                      placeholder="e.g. MERN Stack Developer | Designer"
+                      className="border border-slate-300 rounded-lg px-4 py-2 w-full focus:outline-none focus:ring-2 focus:ring-blue-400"
+                    />
+                  </div>
+
+                  {/* About */}
+                  <div className="flex flex-col gap-1">
+                    <label className="text-sm font-medium text-slate-600">
+                      About You
+                    </label>
+                    <textarea
+                      placeholder="Tell us about yourself..."
+                      rows={4}
+                      {...register("about")}
+                      className="border border-slate-300 rounded-lg px-4 py-2 w-full resize-none focus:outline-none focus:ring-2 focus:ring-blue-400"
+                    ></textarea>
+                  </div>
+                </div>
+                {/* </div> */}
+              </div>
+
+              {/** SKILLS */}
+              <div className="mb-6">
+                <h1 className="text-lg font-semibold text-blue-500 mb-3">
+                  Skills Section
+                </h1>
+
+                <div className="flex flex-col gap-4 border border-slate-200 p-5 rounded-xl">
+                  {/* Input + Button */}
+                  <div className="flex gap-3 w-full">
+                    <input
+                      type="text"
+                      placeholder="Enter a skill (e.g. React, Node.js)"
+                      ref={inputSkills}
+                      onKeyDown={(e) => {
+                        if (e.key === "Enter") {
+                          e.preventDefault();
+                          handleSkills();
+                        }
+                      }}
+                      className="border border-slate-300 rounded-lg w-full px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-400"
+                    />
+
+                    <button
+                      type="button"
+                      onClick={handleSkills}
+                      className="flex gap-2 items-center px-4 py-2 bg-blue-500 hover:bg-blue-600 transition text-white font-medium rounded-lg"
+                    >
+                      <IoIosAdd className="font-extrabold text-xl" />
+                      Add
+                    </button>
+                  </div>
+
+                  {/* Skills List */}
+                  <div className="flex items-center gap-2">
+                    {mySkills.map((item, unique) => (
+                      <span
+                        key={unique}
+                        className="flex items-center gap-2 px-3 py-1 bg-white border border-slate-300 text-sm text-blue-600 rounded-full shadow-sm"
+                      >
+                        {item}
+                        <button
+                          type="button"
+                          onClick={() => handleDeleteSkills(item)}
+                          className="text-red-400 hover:text-red-600 text-xs"
+                        >
+                          <RxCross2 />
+                        </button>
+                      </span>
+                    ))}
+                  </div>
+
+                  {/* Hint */}
+                  <p className="text-xs text-slate-500 italic">
+                    *Focus on core tech stack first
+                  </p>
+                </div>
+              </div>
+
+              {/** PROOF OF WORK */}
+              <div className="mb-6">
+                <h1 className="text-lg font-semibold text-blue-500 mb-3">
+                  Proof of Work
+                </h1>
+
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                  {/* Left Section */}
+                  <div className="bg-white p-4 rounded-xl border border-slate-200 shadow-sm">
+                    <h3 className="text-sm font-medium mb-3">
+                      Professional Links
+                    </h3>
+
+                    <div className="flex flex-col gap-3">
+                      {professionalLinks.map((user) => (
+                        <div key={user.placeholder} className="relative w-full">
+                          <span className="absolute left-3 top-1/2 -translate-y-1/2">
+                            {user.icon}
+                          </span>
+
+                          <input
+                            type="text"
+                            placeholder={user.placeholder}
+                            {...register(user.register)}
+                            className="w-full pl-10 pr-4 py-2 border border-slate-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400"
+                          />
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+
+                  {/* Right Section */}
+                  <div className="flex flex-col bg-white p-4 rounded-xl border border-slate-200 shadow-sm">
+                    <h3 className="text-sm font-medium mb-3">
+                      Major Achievements
+                    </h3>
+
+                    <textarea
+                      {...register("achievements")}
+                      placeholder="e.g. Built 10+ projects, implemented auth system, real-time chat..."
+                      className="w-full flex-1 border border-slate-300 rounded-xl px-4 py-2 resize-none focus:outline-none focus:ring-2 focus:ring-blue-400"
+                    ></textarea>
+                  </div>
+                </div>
+              </div>
+
+              <div className="border-b my-6"></div>
+
+              <div className="flex items-center justify-between">
+                <p>All information is saved locally until you submit</p>
+                <button
+                  type="submit"
+                  className="px-6 py-2 border-none bg-green-900 text-white font-medium rounded-xl shadow-sm"
+                >
+                  Save & Finish Profile
+                </button>
+              </div>
+            </form>
+          </motion.div>
+        </div>
+      )}
+    </>
+  );
+};

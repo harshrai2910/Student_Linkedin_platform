@@ -17,6 +17,7 @@ import { CompleteProfile } from "./components/userProfile/profile/completeProfil
 import { Dashboard } from "./components/dashboard/dashboard";
 import { CreatePost } from "./components/userProfile/PostCreate/temp";
 import { Post } from "./components/userProfile/showPost/Post";
+import { MyNetwork } from "./components/userProfile/userNetwork/MyNetwork";
 import {
   getAllPostsFromServer,
   getPostFromServer,
@@ -26,7 +27,7 @@ import { UserSearchProfile } from "./components/navigation/showUsersProfile";
 function App() {
   const [isLogin, setIsLogin] = useState(false);
   const [loading, setLoading] = useState(true);
-  const [userData, setUserData] = useState([]);
+  const [userData, setUserData] = useState({});
   const [loginErr, setLoginErr] = useState("");
   const [posts, setPost] = useState([]);
   const [toggleBtn, setToggleBtn] = useState(false);
@@ -141,6 +142,8 @@ function App() {
                   element={<CompleteProfile />}
                 />
 
+                <Route path="/profile/myNetwork" element={<MyNetwork />} />
+
                 <Route
                   path="/profile/create-post"
                   element={<CreatePost setPost={setPost} />}
@@ -158,6 +161,7 @@ function App() {
                     <UserSearchProfile
                       searchResultData={searchResultData}
                       setSearchResultData={setSearchResultData}
+                      setUserData={setUserData}
                     />
                   }
                 />

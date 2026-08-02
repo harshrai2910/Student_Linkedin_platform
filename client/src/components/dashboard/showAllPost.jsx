@@ -4,6 +4,7 @@ import { FaRegCommentDots } from "react-icons/fa";
 import { RiSendPlaneFill } from "react-icons/ri";
 import { BiSolidLike } from "react-icons/bi";
 import { AiTwotoneLike } from "react-icons/ai";
+import profileImg from "../../images/ProfileImg.png";
 import { useState } from "react";
 import { useEffect } from "react";
 import {
@@ -29,7 +30,6 @@ export const ShowAllPost = ({ AllPosts, userData }) => {
 
   const handleFollow = async (userId) => {
     await putFollowersfromServer(userId);
-
   };
 
   return (
@@ -44,7 +44,11 @@ export const ShowAllPost = ({ AllPosts, userData }) => {
             <div className="flex gap-2 items-center p-4">
               <div className="flex justify-between">
                 <img
-                  src={`http://localhost:3005/uploads/profile/${post.UserId.profile}`}
+                  src={
+                    post.UserId.profile
+                      ? `http://localhost:3005/uploads/profile/${post.UserId.profile}`
+                      : profileImg
+                  }
                   alt=""
                   className="h-15 w-15 rounded-full shadow-sm"
                 />

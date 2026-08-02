@@ -38,12 +38,14 @@ const authRouter = require("./router/authRouter");
 const userRouter = require("./router/userRouter");
 const userPostRouter = require("./router/userPostRouter");
 const searchRouter = require("./router/searchRouter");
+const myNetwork = require("./router/networkRouter");
 
 app.use("/uploads", express.static("uploads"));
 app.use("/api/user", authRouter);
 app.use("/api/user", userRouter);
 app.use("/api/user", userPostRouter);
 app.use("/api/user", searchRouter);
+app.use("/api/user", myNetwork);
 
 const PORT = 3005;
 mongoose

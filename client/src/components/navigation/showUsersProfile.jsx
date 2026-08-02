@@ -5,10 +5,13 @@ import { FaArrowRight, FaGithub, FaTwitter } from "react-icons/fa6";
 import { useParams } from "react-router-dom";
 import { getSearchResultFromServer } from "../../services/searchLinkServices";
 import ProfileImg from "../../images/ProfileImg.png";
+import { postfollowRequestFromServer } from "../../services/networkLinkServices";
+import { userDataFromServer } from "../../services/userLinkServices";
 
 export const UserSearchProfile = ({
   searchResultData,
   setSearchResultData,
+  setUserData,
 }) => {
   const { userId } = useParams();
 
@@ -23,6 +26,13 @@ export const UserSearchProfile = ({
     { name: searchResultData?.links?.linkedin, icon: <BsLinkedin /> },
     { name: searchResultData?.links?.twitter, icon: <FaTwitter /> },
   ];
+
+  const handleFollow = async (receiverId) => {
+    const result = await postfollowRequestFromServer({ receiverId });
+
+    console.log(result);
+  };
+
   return (
     <>
       <div className="flex items-center justify-center mt-15 mb-20">
@@ -56,6 +66,14 @@ export const UserSearchProfile = ({
                       @{searchResultData?.username}
                     </p>
                   </div>
+                </div>
+                <div className="h-full flex justify-center items-center">
+                  <button
+                    className="border px-5 py-1 rounded-sm bg-blue-500 text-white cursor-pointer"
+                    onClick={() => handleFollow(searchResultData._id)}
+                  >
+                    follow
+                  </button>
                 </div>
               </div>
               <div className="border-t border-slate-300 my-4 "></div>

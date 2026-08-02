@@ -31,7 +31,6 @@ const userSchema = new mongoose.Schema(
     achievements: { type: String },
     profile: { type: String, default: "" },
     language: [{ type: String }],
-    following: [{ type: mongoose.Schema.Types.ObjectId, ref: "userProfile" }],
   },
   {
     timestamps: true,

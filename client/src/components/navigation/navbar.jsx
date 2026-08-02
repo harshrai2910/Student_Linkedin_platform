@@ -7,6 +7,7 @@ import { CgSearch } from "react-icons/cg";
 import { Search } from "./search";
 import { useEffect, useRef, useState } from "react";
 import { postSearchFromServer } from "../../services/searchLinkServices";
+import profileImg from "../../images/ProfileImg.png";
 
 export const Navbar = ({
   isLogin,
@@ -79,6 +80,14 @@ export const Navbar = ({
         {isLogin ? (
           <div className="flex items-end gap-8">
             <Link
+              to="/profile/myNetwork"
+              className="flex flex-col justify-center items-center hover:text-black transition-colors
+              text-gray-600 text-xs font-medium"
+            >
+              <FaImages className="text-lg" />
+              My Network
+            </Link>
+            <Link
               to="/profile/post"
               className="flex flex-col justify-center items-center hover:text-black transition-colors
               text-gray-600 text-xs font-medium"
@@ -104,7 +113,11 @@ export const Navbar = ({
                 className="flex flex-col items-center justify-center"
               >
                 <img
-                  src={`http://localhost:3005/uploads/profile/${userData.profile}`}
+                  src={
+                    userData.profile
+                      ? `http://localhost:3005/uploads/profile/${userData.profile}`
+                      : profileImg
+                  }
                   alt="profile"
                   className="h-5 w-5 rounded-full object-cover shadow-sm cursor-pointer"
                 />
@@ -122,7 +135,11 @@ export const Navbar = ({
                 >
                   <div className="flex gap-2 mb-4">
                     <img
-                      src={`http://localhost:3005/uploads/profile/${userData.profile}`}
+                      src={
+                        userData.profile
+                          ? `http://localhost:3005/uploads/profile/${userData.profile}`
+                          : profileImg
+                      }
                       alt="profile"
                       className="h-20 w-20 rounded-full object-cover shadow-sm"
                     />

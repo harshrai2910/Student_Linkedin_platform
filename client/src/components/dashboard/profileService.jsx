@@ -1,5 +1,6 @@
 import { GoShieldCheck } from "react-icons/go";
 import { Link } from "react-router-dom";
+import profileImg from "../../images/ProfileImg.png";
 
 export const ProfileServices = ({ userData }) => {
   return (
@@ -9,7 +10,11 @@ export const ProfileServices = ({ userData }) => {
           <div className="flex justify-between">
             <Link to="/profile">
               <img
-                src={`http://localhost:3005/uploads/profile/${userData.profile}`}
+                src={
+                  userData.profile
+                    ? `http://localhost:3005/uploads/profile/${userData.profile}`
+                    : profileImg
+                }
                 alt=""
                 className="h-24 w-24 rounded-full object-cover shadow-sm"
               />

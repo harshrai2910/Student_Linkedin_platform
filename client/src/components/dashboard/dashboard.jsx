@@ -16,7 +16,7 @@ export const Dashboard = ({ AllPosts, userData }) => {
         >
           <div>
             {/* sticky top-15 left-0 */}
-            <div className="md:col-span-1 ">
+            <div className="md:col-span-1">
               <div className="border border-slate-200 rounded-2xl p-6 shadow-sm bg-white mb-3 ">
                 <ProfileServices userData={userData} />
               </div>

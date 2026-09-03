@@ -37,7 +37,7 @@ export const CreatePost = ({ setPost }) => {
         initial={{ opacity: 0, x: 20 }}
         animate={{ opacity: 1, x: 0 }}
         transition={{ duration: 0.5 }}
-        className="md:w-3xl w-xl mx-auto p-3 bg-white rounded-lg shadow-md border border-gray-200"
+        className="md:w-3xl w-xl mx-auto p-3 mt-2 bg-white md:rounded-lg shadow-md border border-gray-200"
       >
         <h1 className="text-2xl font-bold mb-4 text-gray-800">Create Post</h1>
 

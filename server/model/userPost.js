@@ -6,6 +6,7 @@ const userPostSchema = new mongoose.Schema(
     content: { type: String, required: true },
     postImage: { type: String, default: "" },
     likes: [{ type: mongoose.Schema.Types.ObjectId, ref: "userProfile" }],
+    isFollowing: { type: Boolean, default: false },
   },
   {
     timestamps: true,

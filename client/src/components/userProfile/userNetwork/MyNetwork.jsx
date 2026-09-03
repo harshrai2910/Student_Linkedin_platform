@@ -17,6 +17,9 @@ export const MyNetwork = () => {
   const fetchConnectionData = async () => {
     const connectionData = await getConnectionDataFromServer();
 
+    console.log(connectionData.sentRequest);
+    console.log(connectionData.receivedRequest);
+
     setSentRequest(connectionData.sentRequest);
     setReceivedRequest(connectionData.receivedRequest);
     setTotalConnection(connectionData.totalConnection);
@@ -43,13 +46,13 @@ export const MyNetwork = () => {
           initial={{ opacity: 0, x: 20 }}
           animate={{ opacity: 1, x: 0 }}
           transition={{ duration: 0.5 }}
-          className="w-6xl grid grid-cols-1 md:grid-cols-8 gap-3"
+          className="w-6xl grid grid-cols-1 md:grid-cols-8 md:gap-3"
         >
-          <div className="md:col-span-3 border border-slate-200 rounded-2xl p-6 shadow-sm bg-white mb-3 ">
+          <div className="md:col-span-3 border border-slate-200 md:rounded-2xl p-6 shadow-sm bg-white mb-3 ">
             <TotalConnection totalConnection={totalConnection} />
           </div>
 
-          <div className="md:col-span-3 border border-slate-200 rounded-2xl px-4 py-5 shadow-sm bg-white mb-3 ">
+          <div className="md:col-span-3 border border-slate-200 md:rounded-2xl px-4 py-5 shadow-sm bg-white mb-3 ">
             <ReceivedRequest
               receivedRequest={receivedRequest}
               handleAccept={handleAccept}
@@ -57,7 +60,7 @@ export const MyNetwork = () => {
             />
           </div>
 
-          <div className="md:col-span-2 border border-slate-200 rounded-2xl px-4 py-5 shadow-sm bg-white mb-3 ">
+          <div className="md:col-span-2 border border-slate-200 md:rounded-2xl px-4 py-5 shadow-sm bg-white mb-3 ">
             <SentRequest sentRequest={sentRequest} />
           </div>
         </motion.div>

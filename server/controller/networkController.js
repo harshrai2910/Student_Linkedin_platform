@@ -5,6 +5,10 @@ exports.postRequestTofollow = async (req, res, _) => {
     const { receiverId } = req.body;
     const senderId = req.session.user.userId;
 
+    if (senderId === receiverId) {
+      return res.status(400).json({ msg: "You cannot follow yourself" });
+    }
+
     const userNetwork = new UserConnection({
       sender: senderId,
       receiver: receiverId,
@@ -12,10 +16,10 @@ exports.postRequestTofollow = async (req, res, _) => {
 
     await userNetwork.save();
 
-    res.status(200).json({ status: "pending status" });
+    return res.status(200).json({ status: "pending" });
   } catch (exception) {
     console.log("error while following, error: ", exception);
-    res.status(500).json({ status: "can't send invite" });
+    return res.status(500).json({ status: "can't send invite" });
   }
 };
 

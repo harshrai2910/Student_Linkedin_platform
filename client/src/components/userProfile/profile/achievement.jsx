@@ -15,7 +15,7 @@ export const Achievement = ({ achievement }) => {
 
   return (
     <>
-      <div className="flex items-center justify-between mb-3">
+      <div className="flex items-center justify-between mb-2 sm:mb-3">
         <h1 className="text-lg font-medium">Achievements</h1>
         <button
           onClick={() => setAchive(!achive)}
@@ -53,7 +53,7 @@ export const Achievement = ({ achievement }) => {
           </div>
         </form>
       ) : (
-        <p className="text-[15px] font-medium text-gray-700 line-clamp-3">
+        <p className="text-[13px] sm:text-[15px] font-medium text-gray-700 line-clamp-4">
           {achievement}
         </p>
       )}

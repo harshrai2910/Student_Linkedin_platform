@@ -1,4 +1,5 @@
 const { check, validationResult } = require("express-validator");
+const UserConnection = require("../model/userConnections");
 const UserPost = require("../model/userPost");
 const User = require("../model/user");
 const path = require("path");
@@ -51,8 +52,26 @@ exports.deletePost = async (req, res, next) => {
 };
 
 exports.getAllPosts = async (req, res, next) => {
-  const usersPost = await UserPost.find().populate("UserId");
-  res.json({ usersPost });
+  const currentUserId = req.session.user.userId;
+  const posts = await UserPost.find().limit(20).lean().populate("UserId");
+
+  const totalConnection = await UserConnection.find({
+    status: "accepted",
+    $or: [{ sender: currentUserId }, { receiver: currentUserId }],
+  });
+
+  const connectedIds = totalConnection.map((conn) =>
+    currentUserId === conn.receiver.toString()
+      ? conn.sender.toString()
+      : conn.receiver.toString(),
+  );
+
+  const usersPost = posts.map((post) => ({
+    ...post,
+    isFollowing: connectedIds.includes(post.UserId._id.toString()),
+  }));
+
+  return res.json({ usersPost });
 };
 
 exports.putLikePost = async (req, res, next) => {

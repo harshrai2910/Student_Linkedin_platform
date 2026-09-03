@@ -1,5 +1,5 @@
 export const postSearchFromServer = async (data) => {
-  const response = await fetch("http://localhost:3005/api/user/search", {
+  const response = await fetch("http://localhost:3006/api/user/search", {
     method: "post",
     headers: {
       "Content-Type": "application/json",
@@ -13,7 +13,7 @@ export const postSearchFromServer = async (data) => {
 
 export const getSearchResultFromServer = async (userId) => {
   const response = await fetch(
-    `http://localhost:3005/api/user/search/${userId}`,
+    `http://localhost:3006/api/user/search/${userId}`,
     {
       credentials: "include",
     },

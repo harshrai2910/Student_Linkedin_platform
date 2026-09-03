@@ -11,38 +11,43 @@ export const Profile = ({ userData }) => {
   const skills = userData.skills;
   const achievement = userData.achievements;
   return (
-    <div className="flex items-center justify-center mt-15 mb-20">
+    <div className="flex justify-center px-3 sm:px-6 lg:px-8 mt-15 mb-3 sm:mb-20">
       <motion.div
-        initial={{ opacity: 0, x: 20 }}
-        animate={{ opacity: 1, x: 0 }}
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.5 }}
-        className="w-6xl grid grid-cols-1 md:grid-cols-18 gap-6"
+        className="w-full max-w-6xl grid grid-cols-1 lg:grid-cols-12 gap-6"
       >
-        <div className="md:col-span-13 ">
-          <div className="border border-slate-200 rounded-2xl p-6 shadow-sm bg-white mb-3">
+        {/* MAIN CONTENT COLUMN */}
+        <div className="lg:col-span-8 flex flex-col gap-4">
+          <div className="border border-slate-200 rounded-2xl p-4 sm:p-6 shadow-sm bg-white">
             <UserProfile userData={userData} />
           </div>
-          <div className="border border-slate-200 rounded-2xl p-6 shadow-sm bg-white mb-3">
+
+          <div className="border border-slate-200 rounded-2xl p-4 sm:p-6 shadow-sm bg-white">
             <Skills skills={skills} />
           </div>
 
-          <div className="border border-slate-200 rounded-2xl px-6 pt-6 pb-2 shadow-sm bg-white mb-3">
+          <div className="border border-slate-200 rounded-2xl p-4 sm:p-6 shadow-sm bg-white">
             <UserPost />
           </div>
 
-          <div className="border border-slate-200 rounded-2xl p-6 shadow-sm bg-white mb-3">
+          <div className="border border-slate-200 rounded-2xl p-4 sm:p-6 shadow-sm bg-white">
             <Achievement achievement={achievement} />
           </div>
         </div>
 
-        <div className="md:col-span-5">
-          <div className="w-full border rounded-2xl p-4 border-slate-200 shadow-sm bg-white mb-3">
+        {/* SIDEBAR COLUMN */}
+        <div className="lg:col-span-4 flex flex-col gap-4">
+          <div className="border border-slate-200 rounded-2xl p-4 sm:p-5 shadow-sm bg-white">
             <Language userData={userData} />
           </div>
-          <div className="border rounded-2xl p-4 border-slate-200 shadow-sm bg-white mb-3">
+
+          <div className="border border-slate-200 rounded-2xl p-4 sm:p-5 shadow-sm bg-white">
             <ProfileURL userData={userData} />
           </div>
-          <div className="border rounded-2xl p-4 border-slate-200 shadow-sm bg-white mb-3">
+
+          <div className="border border-slate-200 rounded-2xl p-4 sm:p-5 shadow-sm bg-white">
             <Contact userData={userData} />
           </div>
         </div>

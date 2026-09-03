@@ -18,14 +18,14 @@ export const UserProfile = ({ userData }) => {
             <div className="flex items-center gap-6">
               <div>
                 <img
-                  src={`http://localhost:3005/uploads/profile/${userData.profile}`}
+                  src={`http://localhost:3006/uploads/profile/${userData.profile}`}
                   alt="profile"
-                  className="h-24 w-24 rounded-full object-cover shadow-lg"
+                  className="h-15 w-15 sm:h-24 sm:w-24 rounded-full object-cover shadow-lg"
                 />
               </div>
 
               <div>
-                <h2 className="text-2xl font-bold">
+                <h2 className="text-xl sm:text-2xl font-bold">
                   {userData.firstName} {userData.lastName}
                 </h2>
                 <p className="text-gray-600">@{userData.username}</p>
@@ -53,13 +53,15 @@ export const UserProfile = ({ userData }) => {
               </div>
             )}
           </div>
-          <div className="border-t border-slate-300 my-4 "></div>
+          <div className="border-t border-slate-300 my-3 sm:my-4 "></div>
           <div>
-            <h1 className="text-[17px] font-bold ">{userData.headline}</h1>
-            <p className="text-[15px] font-medium text-gray-700 line-clamp-3">
+            <h1 className="text-[15px] sm:text-[17px] font-bold ">
+              {userData.headline}
+            </h1>
+            <p className="text-[12px] sm:text-[15px] font-medium text-gray-700 line-clamp-3">
               {userData.about}
             </p>
-            <div className="flex gap-3 my-3">
+            <div className="flex gap-3 my-3 text-sm sm:text-lg">
               <button className="border-none px-3 py-1 bg-blue-600 text-white rounded-2xl">
                 {userData.course?.toUpperCase()}
               </button>
@@ -68,13 +70,15 @@ export const UserProfile = ({ userData }) => {
               </button>
             </div>
             <div>
-              <p className="text-sm font-bold">
+              <p className="text-xs sm:text-sm font-bold">
                 College:{" "}
-                <span className="text-sm font-normal">
+                <span className="font-normal">
                   {firstCapital(userData.clgName)}
                 </span>
               </p>
-              <p className="text-blue-600">{userData.email}</p>
+              <p className="text-xs sm:text-sm text-blue-600">
+                {userData.email}
+              </p>
             </div>
           </div>
         </>

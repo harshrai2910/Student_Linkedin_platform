@@ -30,7 +30,6 @@ function App() {
   const [userData, setUserData] = useState({});
   const [loginErr, setLoginErr] = useState("");
   const [posts, setPost] = useState([]);
-  const [toggleBtn, setToggleBtn] = useState(false);
   const popupRef = useRef();
   const [AllPosts, setAllPosts] = useState([]);
   const [searchResultData, setSearchResultData] = useState({});
@@ -42,24 +41,6 @@ function App() {
       setAllPosts(result.usersPost);
     });
   }, []);
-
-  useEffect(() => {
-    const handleClickOutSide = (event) => {
-      if (
-        popupRef.current &&
-        !popupRef.current.contains(event.target) &&
-        !event.target.closest("button")
-      ) {
-        setToggleBtn(false);
-      }
-    };
-
-    document.addEventListener("mousedown", handleClickOutSide);
-
-    return () => {
-      document.removeEventListener("mousedown", handleClickOutSide);
-    };
-  });
 
   useEffect(() => {
     getPostFromServer().then((result) => {
@@ -118,8 +99,6 @@ function App() {
             handleLogout={handleLogout}
             userData={userData}
             popupRef={popupRef}
-            setToggleBtn={setToggleBtn}
-            toggleBtn={toggleBtn}
             setSearchResultData={setSearchResultData}
           />
 

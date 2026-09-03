@@ -10,14 +10,14 @@ export const Login = ({ handleLoginData, loginErr }) => {
 
   return (
     <>
-      <div className="flex items-center justify-center p-4">
+      <div className="flex items-center justify-center md:p-4 py-2 md:mt-20">
         <motion.div
           initial={{ opacity: 0, x: 50 }}
           animate={{ opacity: 1, x: 0 }}
           transition={{ duration: 0.5 }}
-          className="w-lg mt-20 bg-white p-8 rounded-2xl shadow-sm"
+          className="w-lg bg-white md:p-8 p-5 md:rounded-2xl shadow-sm"
         >
-          <h2 className="text-3xl font-bold text-center text-gray-800 mb-8">
+          <h2 className="md:text-3xl text-2xl font-bold text-center text-gray-800 mb-8">
             Login Your Account
           </h2>
 

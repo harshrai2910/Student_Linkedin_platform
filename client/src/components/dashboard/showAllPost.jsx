@@ -7,14 +7,13 @@ import { AiTwotoneLike } from "react-icons/ai";
 import profileImg from "../../images/ProfileImg.png";
 import { useState } from "react";
 import { useEffect } from "react";
-import {
-  putFollowersfromServer,
-  putLikesFromServer,
-} from "../../services/userPostLinkServices";
+import { putLikesFromServer } from "../../services/userPostLinkServices";
+import { postfollowRequestFromServer } from "../../services/networkLinkServices";
 
 export const ShowAllPost = ({ AllPosts, userData }) => {
   const [posts, setPosts] = useState([]);
   const [following, setFollowing] = useState();
+  const [followMsg, setFollowMsg] = useState("follow");
 
   const handleLikeClick = async (postId) => {
     const result = await putLikesFromServer(postId);
@@ -25,38 +24,43 @@ export const ShowAllPost = ({ AllPosts, userData }) => {
   };
 
   useEffect(() => {
-    if (AllPosts) setPosts(AllPosts);
+    if (AllPosts) {
+      setPosts(AllPosts);
+    }
   }, [AllPosts]);
 
   const handleFollow = async (userId) => {
-    await putFollowersfromServer(userId);
+    const result = await postfollowRequestFromServer({ receiverId: userId });
+    console.log("result", result);
   };
+
+  useEffect(() => {}, []);
 
   return (
     <>
       <div className="flex flex-col gap-4">
-        <h1 className="font-medium text-xl">All Activity</h1>
+        <h1 className="font-medium text-xl hidden md:block">All Activity</h1>
         {posts?.map((post, index) => (
           <div
             key={index}
-            className="flex flex-col gap-2 border border-slate-300 rounded-xl shadow-xs"
+            className="flex flex-col gap-2 border border-slate-300 rounded-xl shadow-xs bg-white"
           >
-            <div className="flex gap-2 items-center p-4">
-              <div className="flex justify-between">
+            <div className="flex gap-2 items-center sm:p-4 p-3 pb-2">
+              <div className="relative shrink-0">
                 <img
                   src={
                     post.UserId.profile
-                      ? `http://localhost:3005/uploads/profile/${post.UserId.profile}`
+                      ? `http://localhost:3006/uploads/profile/${post.UserId.profile}`
                       : profileImg
                   }
                   alt=""
-                  className="h-15 w-15 rounded-full shadow-sm"
+                  className="h-10 w-10 sm:h-15 sm:w-15 rounded-full object-cover shadow-sm"
                 />
               </div>
               <div className="w-full">
                 <div className="flex items-start justify-between">
                   <div className="flex items-center gap-1">
-                    <h1 className="text-lg font-medium">
+                    <h1 className="sm:text-lg text-sm font-medium">
                       {post.UserId.firstName} {post.UserId.lastName}
                     </h1>
 
@@ -73,19 +77,19 @@ export const ShowAllPost = ({ AllPosts, userData }) => {
               <div>
                 <button
                   onClick={() => handleFollow(post.UserId._id)}
-                  className="text-blue-500 font-bold flex gap-2 items-center cursor-pointer"
+                  className="text-blue-500 font-bold flex gap-1 items-center cursor-pointer"
                 >
                   <IoMdAdd className="font-extrabold" />
-                  Follow
+                  {post.isFollowing ? "Following" : "Follow"}
                 </button>
               </div>
             </div>
 
-            <div className="px-4">{post.content}</div>
+            <div className="sm:px-4 px-2">{post.content}</div>
 
             <div>
               <img
-                src={`http://localhost:3005/uploads/post/${post.postImage}`}
+                src={`http://localhost:3006/uploads/post/${post.postImage}`}
                 alt=""
                 className="w-full "
               />

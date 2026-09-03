@@ -36,7 +36,7 @@ export const ShowPost = ({ userData, posts, setPost }) => {
   return (
     <>
       <div className="flex flex-col gap-4">
-        <h1 className="font-medium text-xl">All Activity</h1>
+        <h1 className="font-medium text-xl hidden md:block">All Activity</h1>
         {posts?.length === 0 && (
           <div>
             <h1>No post created Yet</h1>
@@ -45,12 +45,12 @@ export const ShowPost = ({ userData, posts, setPost }) => {
         {posts?.map((post, index) => (
           <div
             key={index}
-            className="flex flex-col gap-2 border border-slate-300 rounded-xl shadow-xs"
+            className="flex flex-col gap-2 border bg-white border-slate-300 rounded-xl shadow-xs"
           >
             <div className="flex gap-2 items-center p-4">
               <div className="flex justify-between">
                 <img
-                  src={`http://localhost:3005/uploads/profile/${userData.profile}`}
+                  src={`http://localhost:3006/uploads/profile/${userData.profile}`}
                   alt=""
                   className="h-15 w-15 rounded-full object-cover shadow-sm"
                 />
@@ -104,7 +104,7 @@ export const ShowPost = ({ userData, posts, setPost }) => {
 
             <div>
               <img
-                src={`http://localhost:3005/uploads/post/${post.postImage}`}
+                src={`http://localhost:3006/uploads/post/${post.postImage}`}
                 alt=""
                 className="w-full "
               />

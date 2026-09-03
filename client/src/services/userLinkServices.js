@@ -1,5 +1,5 @@
 export const userDataFromServer = async () => {
-  const response = await fetch("http://localhost:3005/api/user/profile", {
+  const response = await fetch("http://localhost:3006/api/user/profile", {
     credentials: "include",
   });
 
@@ -20,7 +20,7 @@ export const completeDatafromServer = async (data) => {
   }
 
   const response = await fetch(
-    "http://localhost:3005/api/user/profile/complete",
+    "http://localhost:3006/api/user/profile/complete",
     {
       method: "post",
       credentials: "include",
@@ -33,7 +33,7 @@ export const completeDatafromServer = async (data) => {
 
 export const languageDataFromServer = async (data) => {
   const response = await fetch(
-    "http://localhost:3005/api/user/profile/language",
+    "http://localhost:3006/api/user/profile/language",
     {
       method: "put",
       headers: {
@@ -49,7 +49,7 @@ export const languageDataFromServer = async (data) => {
 
 export const deleteSkillFromServer = async (data) => {
   const response = await fetch(
-    "http://localhost:3005/api/user/profile/skills/delete",
+    "http://localhost:3006/api/user/profile/skills/delete",
     {
       method: "put",
       headers: {
@@ -63,7 +63,7 @@ export const deleteSkillFromServer = async (data) => {
 
 export const updateSkillFromServer = async (data) => {
   const response = await fetch(
-    "http://localhost:3005/api/user/profile/skills/update",
+    "http://localhost:3006/api/user/profile/skills/update",
     {
       method: "put",
       headers: {

@@ -1,11 +1,14 @@
 import { motion } from "motion/react";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { BsLinkedin } from "react-icons/bs";
 import { FaArrowRight, FaGithub, FaTwitter } from "react-icons/fa6";
-import { useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import { getSearchResultFromServer } from "../../services/searchLinkServices";
 import ProfileImg from "../../images/ProfileImg.png";
-import { postfollowRequestFromServer } from "../../services/networkLinkServices";
+import {
+  getConnectionDataFromServer,
+  postfollowRequestFromServer,
+} from "../../services/networkLinkServices";
 import { userDataFromServer } from "../../services/userLinkServices";
 
 export const UserSearchProfile = ({
@@ -14,6 +17,7 @@ export const UserSearchProfile = ({
   setUserData,
 }) => {
   const { userId } = useParams();
+  const [follow, setFollow] = useState(false);
 
   useEffect(() => {
     getSearchResultFromServer(userId).then((result) => {
@@ -21,21 +25,48 @@ export const UserSearchProfile = ({
     });
   }, []);
 
+  const fetchConnectionData = async () => {
+    const connectionData = await getConnectionDataFromServer();
+
+    console.log(connectionData.sentRequest);
+    console.log(connectionData.receivedRequest);
+  };
+
+  useEffect(() => {
+    fetchConnectionData();
+  }, []);
+
   const Links = [
-    { name: searchResultData?.links?.github, icon: <FaGithub /> },
-    { name: searchResultData?.links?.linkedin, icon: <BsLinkedin /> },
-    { name: searchResultData?.links?.twitter, icon: <FaTwitter /> },
+    {
+      link: searchResultData?.links?.github,
+      name: "Github.com",
+      icon: <FaGithub />,
+    },
+    {
+      link: searchResultData?.links?.linkedin,
+      name: "Linkedin.com",
+      icon: <BsLinkedin />,
+    },
+    {
+      link: searchResultData?.links?.twitter,
+      name: "Twitter.com",
+      icon: <FaTwitter />,
+    },
   ];
 
   const handleFollow = async (receiverId) => {
     const result = await postfollowRequestFromServer({ receiverId });
 
-    console.log(result);
+    console.log(receiverId);
+  };
+
+  const handleUnfollow = (receiverId) => {
+    console.log(receiverId);
   };
 
   return (
     <>
-      <div className="flex items-center justify-center mt-15 mb-20">
+      <div className="flex items-center justify-center mb-3 sm:mb-20 p-3">
         <motion.div
           initial={{ opacity: 0, x: 20 }}
           animate={{ opacity: 1, x: 0 }}
@@ -44,13 +75,13 @@ export const UserSearchProfile = ({
         >
           <div className="md:col-span-13 ">
             <div className="border border-slate-200 rounded-2xl p-6 shadow-sm bg-white mb-3">
-              <div className="flex justify-between">
+              <div className="flex justify-between gap-3 md:gap-0 flex-col md:flex-row">
                 <div className="flex items-center gap-6">
                   <div>
                     <img
                       src={
                         searchResultData?.profile
-                          ? `http://localhost:3005/uploads/profile/${searchResultData?.profile}`
+                          ? `http://localhost:3006/uploads/profile/${searchResultData?.profile}`
                           : ProfileImg
                       }
                       alt="profile"
@@ -68,12 +99,21 @@ export const UserSearchProfile = ({
                   </div>
                 </div>
                 <div className="h-full flex justify-center items-center">
-                  <button
-                    className="border px-5 py-1 rounded-sm bg-blue-500 text-white cursor-pointer"
-                    onClick={() => handleFollow(searchResultData._id)}
-                  >
-                    follow
-                  </button>
+                  {follow ? (
+                    <button
+                      className="border px-5 py-1 rounded-sm bg-blue-500 text-white cursor-pointer"
+                      onClick={() => handleUnfollow(searchResultData._id)}
+                    >
+                      Following
+                    </button>
+                  ) : (
+                    <button
+                      className="border px-5 py-1 w-full rounded-sm bg-blue-500 text-white cursor-pointer"
+                      onClick={() => handleFollow(searchResultData._id)}
+                    >
+                      Follow
+                    </button>
+                  )}
                 </div>
               </div>
               <div className="border-t border-slate-300 my-4 "></div>
@@ -128,13 +168,13 @@ export const UserSearchProfile = ({
                 <h1 className="text-lg font-medium">Activity</h1>
 
                 <div className="flex items-center justify-center border-t border-slate-300 mt-2 font-medium">
-                  <button
+                  <Link
                     to="/profile/post"
                     className="flex items-center justify-center gap-2 cursor-pointer text-slate-700 px-20 py-2"
                   >
                     Show all posts
                     <FaArrowRight />
-                  </button>
+                  </Link>
                 </div>
               </div>
             </div>
@@ -176,20 +216,19 @@ export const UserSearchProfile = ({
               <div className="flex items-center justify-between">
                 <h1 className="text-lg font-medium">Contact</h1>
               </div>
-              {/* <div className="flex items-start flex-col gap-2"> */}
               {Links.map((link, unique) => (
                 <div
                   key={unique}
                   className="flex items-center justify-between gap-2 mt-2"
                 >
                   <a
-                    href={link.name}
+                    href={link.link}
                     className="text-xs text-blue-700 underline"
                   >
                     {link.name}
                   </a>
                   <a
-                    href={link.name}
+                    href={link.link}
                     className="p-2 border rounded-2xl text-gray-800 border-gray-800 text-md hover:text-white hover:bg-gray-800 transition-colors shadow-sm"
                   >
                     {link.icon}

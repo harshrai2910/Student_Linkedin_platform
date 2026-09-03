@@ -6,7 +6,7 @@ export const createPostFromServer = async (data) => {
   }
 
   const response = await fetch(
-    "http://localhost:3005/api/user/profile/create-post",
+    "http://localhost:3006/api/user/profile/create-post",
     {
       method: "post",
       credentials: "include",
@@ -19,7 +19,7 @@ export const createPostFromServer = async (data) => {
 
 export const getPostFromServer = async () => {
   const response = await fetch(
-    "http://localhost:3005/api/user/profile/all-post",
+    "http://localhost:3006/api/user/profile/all-post",
     {
       credentials: "include",
     },
@@ -30,7 +30,7 @@ export const getPostFromServer = async () => {
 
 export const deletePostFromServer = async (data) => {
   const response = await fetch(
-    "http://localhost:3005/api/user/profile/post/delete",
+    "http://localhost:3006/api/user/profile/post/delete",
     {
       method: "delete",
       headers: {
@@ -45,7 +45,7 @@ export const deletePostFromServer = async (data) => {
 };
 
 export const getAllPostsFromServer = async () => {
-  const response = await fetch("http://localhost:3005/api/user/getallPost", {
+  const response = await fetch("http://localhost:3006/api/user/getallPost", {
     credentials: "include",
   });
 
@@ -54,7 +54,7 @@ export const getAllPostsFromServer = async () => {
 
 export const putLikesFromServer = async (postId) => {
   const response = await fetch(
-    `http://localhost:3005/api/user/post/${postId}`,
+    `http://localhost:3006/api/user/post/${postId}`,
     {
       method: "put",
       credentials: "include",
@@ -66,7 +66,7 @@ export const putLikesFromServer = async (postId) => {
 
 export const putFollowersfromServer = async (userId) => {
   const response = await fetch(
-    `http://localhost:3005/api/user/follwers/${userId}`,
+    `http://localhost:3006/api/user/follwers/${userId}`,
     {
       method: "put",
       credentials: "include",

@@ -75,31 +75,29 @@ export const CompleteProfile = () => {
       {submiting ? (
         <Loader />
       ) : (
-        <div className="flex items-center justify-center m-6">
+        <div className="flex items-center justify-center md:p-4 py-2 sm:m-3">
           <motion.div
             initial={{ opacity: 0, x: 20 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.5 }}
+            className="w-full max-w-6xl"
           >
             <form
               onSubmit={handleSubmit(onSubmit)}
-              className="border w-6xl bg-white p-6 rounded-2xl border-slate-200 shadow-sm"
+              className="border w-full bg-white p-4 sm:p-6 md:rounded-2xl border-slate-200 shadow-sm"
             >
-              <div className="font-bold text-2xl">
+              <div className="font-bold text-xl sm:text-2xl">
                 <h1>Complete Your Profile</h1>
               </div>
 
-              <div className="border-b my-6"></div>
+              <div className="border-b my-4 sm:my-6"></div>
 
               {/** PROFILE */}
-              {/* <div className="mb-6"> */}
-              <h1 className="text-lg font-semibold text-blue-500 mb-4">
+              <h1 className="text-base sm:text-lg font-semibold text-blue-500 mb-4">
                 Profile Hook
               </h1>
 
-              <div className="flex flex-col md:flex-row items-center gap-6 mb-6">
-                {/* Right Content */}
-
+              <div className="flex flex-col md:flex-row items-center gap-4 sm:gap-6 mb-6">
                 <div className="flex flex-col gap-4 w-full">
                   <div className="flex flex-col gap-1">
                     <label className="text-sm font-medium text-slate-600">
@@ -108,7 +106,7 @@ export const CompleteProfile = () => {
                     <input
                       type="file"
                       {...register("profile")}
-                      className="border border-slate-300 rounded-lg px-4 py-2 w-full focus:outline-none focus:ring-2 focus:ring-blue-400"
+                      className="border border-slate-300 rounded-lg px-3 sm:px-4 py-2 w-full text-sm focus:outline-none focus:ring-2 focus:ring-blue-400"
                     />
                   </div>
                   {/* Headline */}
@@ -120,7 +118,7 @@ export const CompleteProfile = () => {
                       type="text"
                       {...register("headline")}
                       placeholder="e.g. MERN Stack Developer | Designer"
-                      className="border border-slate-300 rounded-lg px-4 py-2 w-full focus:outline-none focus:ring-2 focus:ring-blue-400"
+                      className="border border-slate-300 rounded-lg px-3 sm:px-4 py-2 w-full text-sm sm:text-base focus:outline-none focus:ring-2 focus:ring-blue-400"
                     />
                   </div>
 
@@ -133,22 +131,21 @@ export const CompleteProfile = () => {
                       placeholder="Tell us about yourself..."
                       rows={4}
                       {...register("about")}
-                      className="border border-slate-300 rounded-lg px-4 py-2 w-full resize-none focus:outline-none focus:ring-2 focus:ring-blue-400"
+                      className="border border-slate-300 rounded-lg px-3 sm:px-4 py-2 w-full text-sm sm:text-base resize-none focus:outline-none focus:ring-2 focus:ring-blue-400"
                     ></textarea>
                   </div>
                 </div>
-                {/* </div> */}
               </div>
 
               {/** SKILLS */}
               <div className="mb-6">
-                <h1 className="text-lg font-semibold text-blue-500 mb-3">
+                <h1 className="text-base sm:text-lg font-semibold text-blue-500 mb-3">
                   Skills Section
                 </h1>
 
-                <div className="flex flex-col gap-4 border border-slate-200 p-5 rounded-xl">
+                <div className="flex flex-col gap-4 border border-slate-200 p-4 sm:p-5 rounded-xl">
                   {/* Input + Button */}
-                  <div className="flex gap-3 w-full">
+                  <div className="flex flex-col sm:flex-row gap-3 w-full">
                     <input
                       type="text"
                       placeholder="Enter a skill (e.g. React, Node.js)"
@@ -159,13 +156,13 @@ export const CompleteProfile = () => {
                           handleSkills();
                         }
                       }}
-                      className="border border-slate-300 rounded-lg w-full px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-400"
+                      className="border border-slate-300 rounded-lg w-full px-3 sm:px-4 py-2 text-sm sm:text-base focus:outline-none focus:ring-2 focus:ring-blue-400"
                     />
 
                     <button
                       type="button"
                       onClick={handleSkills}
-                      className="flex gap-2 items-center px-4 py-2 bg-blue-500 hover:bg-blue-600 transition text-white font-medium rounded-lg"
+                      className="flex gap-2 items-center justify-center px-4 py-2 bg-blue-500 hover:bg-blue-600 transition text-white font-medium rounded-lg whitespace-nowrap"
                     >
                       <IoIosAdd className="font-extrabold text-xl" />
                       Add
@@ -173,11 +170,11 @@ export const CompleteProfile = () => {
                   </div>
 
                   {/* Skills List */}
-                  <div className="flex items-center gap-2">
+                  <div className="flex flex-wrap items-center gap-2">
                     {mySkills.map((item, unique) => (
                       <span
                         key={unique}
-                        className="flex items-center gap-2 px-3 py-1 bg-white border border-slate-300 text-sm text-blue-600 rounded-full shadow-sm"
+                        className="flex items-center gap-2 px-3 py-1 bg-white border border-slate-300 text-xs sm:text-sm text-blue-600 rounded-full shadow-sm"
                       >
                         {item}
                         <button
@@ -200,11 +197,11 @@ export const CompleteProfile = () => {
 
               {/** PROOF OF WORK */}
               <div className="mb-6">
-                <h1 className="text-lg font-semibold text-blue-500 mb-3">
+                <h1 className="text-base sm:text-lg font-semibold text-blue-500 mb-3">
                   Proof of Work
                 </h1>
 
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-6">
                   {/* Left Section */}
                   <div className="bg-white p-4 rounded-xl border border-slate-200 shadow-sm">
                     <h3 className="text-sm font-medium mb-3">
@@ -222,7 +219,7 @@ export const CompleteProfile = () => {
                             type="text"
                             placeholder={user.placeholder}
                             {...register(user.register)}
-                            className="w-full pl-10 pr-4 py-2 border border-slate-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400"
+                            className="w-full pl-10 pr-3 sm:pr-4 py-2 text-sm sm:text-base border border-slate-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400"
                           />
                         </div>
                       ))}
@@ -238,19 +235,21 @@ export const CompleteProfile = () => {
                     <textarea
                       {...register("achievements")}
                       placeholder="e.g. Built 10+ projects, implemented auth system, real-time chat..."
-                      className="w-full flex-1 border border-slate-300 rounded-xl px-4 py-2 resize-none focus:outline-none focus:ring-2 focus:ring-blue-400"
+                      className="w-full flex-1 border border-slate-300 rounded-xl px-3 sm:px-4 py-2 text-sm sm:text-base resize-none focus:outline-none focus:ring-2 focus:ring-blue-400"
                     ></textarea>
                   </div>
                 </div>
               </div>
 
-              <div className="border-b my-6"></div>
+              <div className="border-b my-4 sm:my-6"></div>
 
-              <div className="flex items-center justify-between">
-                <p>All information is saved locally until you submit</p>
+              <div className="flex flex-col sm:flex-row items-center sm:justify-between gap-3">
+                <p className="text-xs sm:text-sm text-center sm:text-left">
+                  All information is saved locally until you submit
+                </p>
                 <button
                   type="submit"
-                  className="px-6 py-2 border-none bg-green-900 text-white font-medium rounded-xl shadow-sm"
+                  className="w-full sm:w-auto px-6 py-2 border-none bg-green-900 text-white font-medium rounded-xl shadow-sm"
                 >
                   Save & Finish Profile
                 </button>

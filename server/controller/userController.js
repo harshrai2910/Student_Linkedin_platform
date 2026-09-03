@@ -1,15 +1,23 @@
 const { check, validationResult } = require("express-validator");
 const User = require("../model/user");
+const UserConnection = require("../model/userConnections");
 
 exports.getUserData = async (req, res, next) => {
   if (req.session.isLoggedIn) {
     const userId = req.session.user.userId;
-    const userData = await User.findById({ _id: userId });
+    const data = await User.findOne({ _id: userId }).lean();
 
-    if (userData) {
-      return res.status(200).json(userData);
-    }
-    return res.status(400).json({ msg: "data does not exist" });
+    const totalConnection = await UserConnection.find({
+      status: "accepted",
+      $or: [{ sender: userId }, { receiver: userId }],
+    });
+
+    const userData = {
+      ...data,
+      connections: totalConnection.length,
+    };
+
+    return res.status(200).json(userData);
   }
 };
 

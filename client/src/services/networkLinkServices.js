@@ -1,5 +1,5 @@
 export const postfollowRequestFromServer = async (receiverId) => {
-  const response = await fetch("http://localhost:3005/api/user/myNetwork", {
+  const response = await fetch("http://localhost:3006/api/user/myNetwork", {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -14,7 +14,7 @@ export const postfollowRequestFromServer = async (receiverId) => {
 
 export const getConnectionDataFromServer = async () => {
   const response = await fetch(
-    "http://localhost:3005/api/user/myNetwork/connections",
+    "http://localhost:3006/api/user/myNetwork/connections",
     {
       method: "GET",
       credentials: "include",
@@ -26,7 +26,7 @@ export const getConnectionDataFromServer = async () => {
 
 export const patchIsAcceptedFromServer = async (id) => {
   const response = await fetch(
-    `http://localhost:3005/api/user/myNetwork/${id}/accepted`,
+    `http://localhost:3006/api/user/myNetwork/${id}/accepted`,
     {
       method: "PATCH",
       credentials: "include",
@@ -38,7 +38,7 @@ export const patchIsAcceptedFromServer = async (id) => {
 
 export const patchIsRejectedFromServer = async (id) => {
   const response = await fetch(
-    `http://localhost:3005/api/user/myNetwork/${id}/rejected`,
+    `http://localhost:3006/api/user/myNetwork/${id}/rejected`,
     {
       method: "PATCH",
       credentials: "include",

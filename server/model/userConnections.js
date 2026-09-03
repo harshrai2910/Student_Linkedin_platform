@@ -25,4 +25,14 @@ const userConnectionSchema = new mongoose.Schema(
   },
 );
 
+userConnectionSchema.index(
+  {
+    sender: 1,
+    receiver: 1,
+  },
+  {
+    unique: true,
+  },
+);
+
 module.exports = mongoose.model("UserConnection", userConnectionSchema);

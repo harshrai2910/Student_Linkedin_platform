@@ -4,45 +4,53 @@ import profileImg from "../../images/ProfileImg.png";
 
 export const ProfileServices = ({ userData }) => {
   return (
-    <>
-      <div>
-        <div className="flex flex-col gap-2">
-          <div className="flex justify-between">
-            <Link to="/profile">
-              <img
-                src={
-                  userData.profile
-                    ? `http://localhost:3005/uploads/profile/${userData.profile}`
-                    : profileImg
-                }
-                alt=""
-                className="h-24 w-24 rounded-full object-cover shadow-sm"
-              />
-            </Link>
+    <div className="flex flex-col gap-4">
+      {/* Top Section: Avatar & Verification Badge */}
+      <div className="flex items-start justify-between">
+        <Link to="/profile" className="inline-block group">
+          <img
+            src={
+              userData?.profile
+                ? `http://localhost:3006/uploads/profile/${userData.profile}`
+                : profileImg
+            }
+            alt={userData?.username || "User Profile"}
+            className="w-20 h-20 sm:w-24 sm:h-24 rounded-full object-cover ring-2 ring-slate-100 group-hover:ring-blue-500 transition-all"
+          />
+        </Link>
 
-            <GoShieldCheck className="text-2xl" />
-          </div>
-          <div className="flex flex-col gap-3">
-            <div>
-              <Link to="/profile">
-                <h2 className="text-xl font-bold">
-                  {userData.firstName} {userData.lastName}
-                </h2>
-                <p className="text-gray-600 text-xs">@{userData.username}</p>
-              </Link>
-            </div>
-            <div>
-              <Link to="/profile">
-                <p className="text-sm font-medium text-gray-800 line-clamp-2">
-                  {userData.headline}
-                </p>
-              </Link>
+        <span title="Verified Profile">
+          <GoShieldCheck className="text-2xl text-blue-600 hover:text-blue-700 transition-colors" />
+        </span>
+      </div>
 
-              <p className="text-gray-600 text-xs p-1">India</p>
-            </div>
-          </div>
+      {/* User Details */}
+      <div className="flex flex-col gap-3">
+        {/* Name & Handle */}
+        <div>
+          <Link to="/profile" className="group">
+            <h2 className="text-lg sm:text-xl font-bold text-gray-900 group-hover:text-blue-600 transition-colors truncate">
+              {userData?.firstName} {userData?.lastName}
+            </h2>
+            <p className="text-gray-500 text-xs sm:text-sm font-medium">
+              @{userData?.username}
+            </p>
+          </Link>
+        </div>
+
+        {/* Headline & Location */}
+        <div className="space-y-1">
+          <Link to="/profile" className="block">
+            <p className="text-xs sm:text-sm font-medium text-gray-700 hover:text-gray-900 line-clamp-2 leading-relaxed">
+              {userData?.headline || "No headline provided"}
+            </p>
+          </Link>
+
+          <p className="text-gray-500 text-xs font-semibold uppercase tracking-wider">
+            {userData?.location || "India"}
+          </p>
         </div>
       </div>
-    </>
+    </div>
   );
 };

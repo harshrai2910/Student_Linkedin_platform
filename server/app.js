@@ -10,7 +10,7 @@ require("dotenv").config();
 const DATA_PATH = process.env.MONGODB_PATH;
 
 app.use(express.urlencoded({ extended: true }));
-app.use(cors({ origin: "http://localhost:5173", credentials: true }));
+app.use(cors({ origin: "https://connectsd.vercel.app/", credentials: true }));
 
 app.use(express.json());
 

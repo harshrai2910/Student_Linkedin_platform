@@ -6,6 +6,7 @@ const mongoose = require("mongoose");
 const session = require("express-session");
 const MongoDBStore = require("connect-mongodb-session")(session);
 require("dotenv").config();
+const isProduction = process.env.NODE_ENV === "production";
 
 const DATA_PATH = process.env.MONGODB_PATH;
 
@@ -24,6 +25,8 @@ app.use(
     secret: process.env.SESSION_SECRET,
     cookie: {
       maxAge: 1000 * 60 * 60 * 24 * 7,
+      secure: isProduction,
+      sameSite: isProduction ? "none" : "lax",
     },
     store: store,
     resave: false,

@@ -1,5 +1,7 @@
+const API_URL = import.meta.env.API_URL;
+
 export const signupFromServer = async (data) => {
-  const response = await fetch("http://localhost:3006/api/user/signup", {
+  const response = await fetch(`${API_URL}/api/user/signup`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -13,7 +15,7 @@ export const signupFromServer = async (data) => {
 };
 
 export const loginFromServer = async (data) => {
-  const response = await fetch("http://localhost:3006/api/user/login", {
+  const response = await fetch(`${API_URL}/api/user/login`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -27,7 +29,7 @@ export const loginFromServer = async (data) => {
 };
 
 export const logoutFromServer = async () => {
-  const response = await fetch("http://localhost:3006/api/user/postLogout", {
+  const response = await fetch(`${API_URL}/api/user/postLogout`, {
     method: "post",
     credentials: "include",
   });
@@ -35,7 +37,7 @@ export const logoutFromServer = async () => {
 };
 
 export const authStatus = async () => {
-  const response = await fetch("http://localhost:3006/api/user/status", {
+  const response = await fetch(`${API_URL}/api/user/status`, {
     credentials: "include",
   });
 

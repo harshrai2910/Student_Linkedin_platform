@@ -1,5 +1,7 @@
+const API_URL = import.meta.env.API_URL;
+
 export const postSearchFromServer = async (data) => {
-  const response = await fetch("http://localhost:3006/api/user/search", {
+  const response = await fetch(`${API_URL}/api/user/search`, {
     method: "post",
     headers: {
       "Content-Type": "application/json",
@@ -12,12 +14,9 @@ export const postSearchFromServer = async (data) => {
 };
 
 export const getSearchResultFromServer = async (userId) => {
-  const response = await fetch(
-    `http://localhost:3006/api/user/search/${userId}`,
-    {
-      credentials: "include",
-    },
-  );
+  const response = await fetch(`${API_URL}/api/user/search/${userId}`, {
+    credentials: "include",
+  });
 
   return await response.json();
 };

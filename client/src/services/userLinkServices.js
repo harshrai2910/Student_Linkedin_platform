@@ -1,5 +1,7 @@
+const API_URL = import.meta.env.API_URL;
+
 export const userDataFromServer = async () => {
-  const response = await fetch("http://localhost:3006/api/user/profile", {
+  const response = await fetch(`${API_URL}/api/user/profile`, {
     credentials: "include",
   });
 
@@ -19,60 +21,48 @@ export const completeDatafromServer = async (data) => {
     formData.append("profile", data.profile[0]);
   }
 
-  const response = await fetch(
-    "http://localhost:3006/api/user/profile/complete",
-    {
-      method: "post",
-      credentials: "include",
-      body: formData,
-    },
-  );
+  const response = await fetch(`${API_URL}/api/user/profile/complete`, {
+    method: "post",
+    credentials: "include",
+    body: formData,
+  });
 
   return await response.json();
 };
 
 export const languageDataFromServer = async (data) => {
-  const response = await fetch(
-    "http://localhost:3006/api/user/profile/language",
-    {
-      method: "put",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      credentials: "include",
-      body: JSON.stringify(data),
+  const response = await fetch(`${API_URL}/api/user/profile/language`, {
+    method: "put",
+    headers: {
+      "Content-Type": "application/json",
     },
-  );
+    credentials: "include",
+    body: JSON.stringify(data),
+  });
 
   return await response.json();
 };
 
 export const deleteSkillFromServer = async (data) => {
-  const response = await fetch(
-    "http://localhost:3006/api/user/profile/skills/delete",
-    {
-      method: "put",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      credentials: "include",
-      body: JSON.stringify(data),
+  const response = await fetch(`${API_URL}/api/user/profile/skills/delete`, {
+    method: "put",
+    headers: {
+      "Content-Type": "application/json",
     },
-  );
+    credentials: "include",
+    body: JSON.stringify(data),
+  });
 };
 
 export const updateSkillFromServer = async (data) => {
-  const response = await fetch(
-    "http://localhost:3006/api/user/profile/skills/update",
-    {
-      method: "put",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      credentials: "include",
-      body: JSON.stringify(data),
+  const response = await fetch(`${API_URL}/api/user/profile/skills/update`, {
+    method: "put",
+    headers: {
+      "Content-Type": "application/json",
     },
-  );
+    credentials: "include",
+    body: JSON.stringify(data),
+  });
 
   return await response.json();
 };

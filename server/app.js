@@ -7,6 +7,8 @@ const session = require("express-session");
 const MongoDBStore = require("connect-mongodb-session")(session);
 require("dotenv").config();
 
+const isProduction = process.env.NODE_ENV === "production";
+
 const DATA_PATH = process.env.MONGODB_PATH;
 
 app.use(express.urlencoded({ extended: true }));
@@ -19,13 +21,15 @@ const store = new MongoDBStore({
   collection: "mySessions",
 });
 
+app.set("trust proxy", 1);
+
 app.use(
   session({
     secret: process.env.SESSION_SECRET,
     cookie: {
       maxAge: 1000 * 60 * 60 * 24 * 7,
-      secure: true,
-      sameSite: "none",
+      secure: isProduction,
+      sameSite: isProduction ? "none" : "lax",
     },
     store: store,
     resave: false,

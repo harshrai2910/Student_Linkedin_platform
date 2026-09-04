@@ -47,7 +47,8 @@ app.use("/api/user", userPostRouter);
 app.use("/api/user", searchRouter);
 app.use("/api/user", myNetwork);
 
-const PORT = 3006;
+const PORT = process.env.PORT || 3006;
+
 mongoose
   .connect(DATA_PATH)
   .then(() => {

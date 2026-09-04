@@ -4,7 +4,7 @@ const userController = require("../controller/userController");
 const isAuth = require("../middleware/isAuth");
 const upload = require("../middleware/multer");
 
-userRouter.get("/profile", isAuth, userController.getUserData);
+userRouter.get("/profile", userController.getUserData);
 
 userRouter.post(
   "/profile/complete",
@@ -17,13 +17,13 @@ userRouter.post(
   userController.postCompleteData,
 );
 
-userRouter.put("/profile/language", isAuth, userController.postEditLanguage);
+userRouter.put("/profile/language", userController.postEditLanguage);
 userRouter.put(
   "/profile/skills/delete",
   isAuth,
   userController.putDeleteSkills,
 );
 
-userRouter.put("/profile/skills/update", isAuth, userController.putUpdateSkill);
+userRouter.put("/profile/skills/update", userController.putUpdateSkill);
 
 module.exports = userRouter;

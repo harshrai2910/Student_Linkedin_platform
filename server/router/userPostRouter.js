@@ -15,7 +15,7 @@ userPostRouter.post(
   userPostController.createPost,
 );
 
-userPostRouter.get("/profile/all-post", isAuth, userPostController.getPosts);
+userPostRouter.get("/profile/all-post", userPostController.getPosts);
 
 userPostRouter.delete(
   "/profile/post/delete",
@@ -23,8 +23,8 @@ userPostRouter.delete(
   userPostController.deletePost,
 );
 
-userPostRouter.get("/getallPost", isAuth, userPostController.getAllPosts);
-userPostRouter.put("/post/:postId", isAuth, userPostController.putLikePost);
+userPostRouter.get("/getallPost", userPostController.getAllPosts);
+userPostRouter.put("/post/:postId", userPostController.putLikePost);
 userPostRouter.put(
   "/follwers/:userId",
   isAuth,
